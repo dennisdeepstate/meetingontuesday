@@ -1,0 +1,49 @@
+{
+	"version": "5",
+	"dialect": "pg",
+	"id": "dde31659-f2d5-4a34-a175-aa4cbd6a4467",
+	"prevId": "00000000-0000-0000-0000-000000000000",
+	"tables": {
+		"items": {
+			"name": "items",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"base_uom": {
+					"name": "base_uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"category": {
+					"name": "category",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"_meta": {
+		"schemas": {},
+		"tables": {},
+		"columns": {}
+	}
+}

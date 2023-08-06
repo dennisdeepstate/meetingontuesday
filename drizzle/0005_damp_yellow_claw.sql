@@ -1,0 +1,1 @@
+ALTER TABLE "purchase_transactions" ADD COLUMN "voucher" text NOT NULL;

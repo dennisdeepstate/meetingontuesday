@@ -1,0 +1,1 @@
+ALTER TABLE "conversions" ADD COLUMN "uom" text NOT NULL;

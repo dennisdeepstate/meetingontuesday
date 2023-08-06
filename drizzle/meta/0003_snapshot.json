@@ -1,0 +1,83 @@
+{
+	"version": "5",
+	"dialect": "pg",
+	"id": "9993dc15-df3f-4e88-abb3-8753bfefc80f",
+	"prevId": "7be25c0e-1da1-4e6c-99ff-2653b7494ced",
+	"tables": {
+		"conversions": {
+			"name": "conversions",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"uom": {
+					"name": "uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"conversion": {
+					"name": "conversion",
+					"type": "numeric",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		},
+		"items": {
+			"name": "items",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"base_uom": {
+					"name": "base_uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"category": {
+					"name": "category",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"_meta": {
+		"schemas": {},
+		"tables": {},
+		"columns": {}
+	}
+}

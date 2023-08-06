@@ -1,0 +1,1 @@
+ALTER TABLE "conversions" ALTER COLUMN "conversion" SET DATA TYPE numeric;

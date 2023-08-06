@@ -1,0 +1,153 @@
+{
+	"version": "5",
+	"dialect": "pg",
+	"id": "7fa0839b-75b0-425c-a9b0-178407d81a93",
+	"prevId": "08241587-b5b8-4c56-95a2-2694037ca38e",
+	"tables": {
+		"conversions": {
+			"name": "conversions",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"uom": {
+					"name": "uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"conversion": {
+					"name": "conversion",
+					"type": "numeric",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		},
+		"items": {
+			"name": "items",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"base_uom": {
+					"name": "base_uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"category": {
+					"name": "category",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		},
+		"purchase_transactions": {
+			"name": "purchase_transactions",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "serial",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"item": {
+					"name": "item",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"uom": {
+					"name": "uom",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"vendor": {
+					"name": "vendor",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"voucher": {
+					"name": "voucher",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"grn": {
+					"name": "grn",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"date": {
+					"name": "date",
+					"type": "date",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"rate_exclusive": {
+					"name": "rate_exclusive",
+					"type": "numeric",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"rate_inclusive": {
+					"name": "rate_inclusive",
+					"type": "numeric",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"qty": {
+					"name": "qty",
+					"type": "numeric",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {}
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"_meta": {
+		"schemas": {},
+		"tables": {},
+		"columns": {}
+	}
+}
