@@ -24,21 +24,6 @@ export async function load({ params }) {
 		.orderBy(asc(purchaseTransactionsTable.item), desc(purchaseTransactionsTable.date))
 		.as('sq')
 
-	const items = await db
-		.selectDistinctOn([itemsTable.item],{
-			item: itemsTable.item,
-			baseUom: itemsTable.baseUom,
-			category: itemsTable.category,
-			purchaseUom: sq.uom,
-			rateExclusive: sq.rateExclusive,
-			rateInclusive: sq.rateInclusive,
-            date: sq.date,
-			vendor: sq.vendor
-		})
-		.from(itemsTable)
-        .orderBy(asc(itemsTable.item), asc(itemsTable.id))
-		.leftJoin(sq, eq(itemsTable.item, sq.item))
-
 	const sqDefault = db
 		.selectDistinctOn([purchaseTransactionsTable.item], {
 			item: purchaseTransactionsTable.item,
@@ -52,19 +37,25 @@ export async function load({ params }) {
 		.orderBy(asc(purchaseTransactionsTable.item), desc(purchaseTransactionsTable.date))
 		.as('sqDefault')
 
-	const itemsDefault = await db
-		.selectDistinctOn([itemsTable.item],{
+	const items = await db
+		.selectDistinctOn([itemsTable.item], {
 			item: itemsTable.item,
 			baseUom: itemsTable.baseUom,
 			category: itemsTable.category,
-			purchaseUom: sqDefault.uom,
-			rateExclusive: sqDefault.rateExclusive,
-			rateInclusive: sqDefault.rateInclusive,
-            date: sqDefault.date,
-			vendor: sqDefault.vendor
+			purchaseUom: sq.uom,
+			rateExclusive: sq.rateExclusive,
+			rateInclusive: sq.rateInclusive,
+			date: sq.date,
+			vendor: sq.vendor,
+			purchaseUomDefault: sqDefault.uom,
+			rateExclusiveDefault: sqDefault.rateExclusive,
+			rateInclusiveDefault: sqDefault.rateInclusive,
+			dateDefault: sqDefault.date,
+			vendorDefault: sqDefault.vendor
 		})
 		.from(itemsTable)
-        .orderBy(asc(itemsTable.item), asc(itemsTable.id))
+		.orderBy(asc(itemsTable.item), asc(itemsTable.id))
+		.leftJoin(sq, eq(itemsTable.item, sq.item))
 		.leftJoin(sqDefault, eq(itemsTable.item, sqDefault.item))
 
 	const conversions = await db
@@ -75,5 +66,24 @@ export async function load({ params }) {
 		})
 		.from(conversionsTable)
 
-	return { items: items, conversions: conversions, itemsDefault }
+	const itemPurchases = await db
+		.select({
+			item: purchaseTransactionsTable.item,
+			uom: purchaseTransactionsTable.uom,
+			date: purchaseTransactionsTable.date,
+			vendor: purchaseTransactionsTable.vendor,
+			rateExclusive: purchaseTransactionsTable.rateExclusive,
+			rateInclusive: purchaseTransactionsTable.rateInclusive,
+			qty: purchaseTransactionsTable.qty
+		})
+		.from(purchaseTransactionsTable)
+		.where(
+			and(
+				lte(purchaseTransactionsTable.date, toDate),
+				gte(purchaseTransactionsTable.date, fromDate)
+			)
+		)
+		.orderBy(desc(purchaseTransactionsTable.date))
+
+	return { items: items, conversions: conversions, itemPurchases: itemPurchases }
 }
