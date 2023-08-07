@@ -18,7 +18,7 @@
 	$: itemPurchaseData = getPurchaseData(selectedItem)
 	
 	$: itemPurchaseData.forEach(item =>{
-		itemTotalCost += getRate( getItem(item.item) ) * getQty( item )
+		itemTotalCost += (( parseFloat(item.rateExclusive) / convert( item )) * getQty( item ))
 	})
 	$: itemPurchaseData.forEach(item =>{
 		itemTotalQty += getQty( item )
@@ -31,6 +31,11 @@
 		if (x.length > 0) return parseFloat(x[0].conversion)
 		return 1
 	}
+	const convert = (convertible: PageData['itemPurchases'][0]) => {
+		let x = conversions.filter((item) => item.item === convertible.item && item.uom === convertible.uom)
+		if (x.length > 0) return parseFloat(x[0].conversion)
+		return 1
+	}
 	const getRate = (convertible: PageData['items'][0]) => {
 		let rateExclusive = convertible.rateExclusive
 			? convertible.rateExclusive
@@ -39,7 +44,7 @@
 	}
 	const getQty = (purchaseTransaction: PageData['itemPurchases'][0]) => {
 		let qty = purchaseTransaction.qty
-		return parseFloat(qty ?? '0') / convertRate( getItem(purchaseTransaction.item) )
+		return parseFloat(qty ?? '0') / convert( purchaseTransaction )
 	}
 
 	const getItem = (convertibleItem: string) => {
@@ -59,7 +64,7 @@
 					>
 					<div class="gap-1 grid grid-cols-[3fr_2fr_1fr] items-left">
 						<span>{item.item}</span>
-						<span class="text-right">{getRate(item)} {item.baseUom}</span>
+						<span class="text-right">{getRate(item).toFixed(4)} {item.baseUom}</span>
 						<span class="text-sm text-right">
 							{item.date
 							? new Date(item.date).toDateString()
@@ -72,13 +77,13 @@
 		</ListBox>
 	</div>
 	<div class="card p-4 overflow-y-auto">
-		<h3 class="h3">Weighted Average Cost: ({itemTotalCost / itemTotalQty}) Unit: { getItem(selectedItem ?? ' ')?.baseUom }</h3>
+		<h3 class="h3">Weighted Average Cost: ({(itemTotalCost / itemTotalQty).toFixed(4)}) Unit: { getItem(selectedItem ?? ' ')?.baseUom }</h3>
 		<ul class="list">
 			{#each itemPurchaseData as itemData }
 				<li class="gap-1 grid grid-cols-4 items-left">
-					<span>{getRate( getItem(itemData.item) )}</span>
+					<span>{(parseFloat(itemData.rateExclusive) / convert( itemData )).toFixed(4)}</span>
 					<span>{itemData.vendor}</span>
-					<span>{ getQty( itemData ) }</span>
+					<span>{ (getQty( itemData )).toFixed(2) }</span>
 					<span class="text-sm">{new Date(itemData.date).toDateString()}</span></li>
 			{/each}
 		</ul>
