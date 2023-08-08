@@ -85,6 +85,7 @@
 					<span>{itemData.vendor}</span>
 					<span>{ (getQty( itemData )).toFixed(2) }</span>
 					<span class="text-sm">{new Date(itemData.date).toDateString()}</span></li>
+					{ console.log( parseFloat(itemData.rateExclusive) ) }
 			{/each}
 		</ul>
 	</div>
