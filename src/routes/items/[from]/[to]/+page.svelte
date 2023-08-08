@@ -7,7 +7,7 @@
 	let items = data.items
 	const conversions = data.conversions
 	const purchases = data.itemPurchases
-console.log(purchases)
+
 	let itemTotalCost = 0
 	let itemTotalQty = 0
 	const getPurchaseData = (selectedItem: string | undefined) =>{
@@ -16,6 +16,7 @@ console.log(purchases)
 		let purchaseData =  purchases.filter(item => item.item === selectedItem)
 		return purchaseData
 	}
+console.log( getPurchaseData('Eggs Large Fresh '))
 	$: itemPurchaseData = getPurchaseData(selectedItem)
 	
 	$: itemPurchaseData.forEach(item =>{
