@@ -7,6 +7,7 @@
 	let items = data.items
 	const conversions = data.conversions
 	const purchases = data.itemPurchases
+console.log(purchases)
 	let itemTotalCost = 0
 	let itemTotalQty = 0
 	const getPurchaseData = (selectedItem: string | undefined) =>{
@@ -85,7 +86,6 @@
 					<span>{itemData.vendor}</span>
 					<span>{ (getQty( itemData )).toFixed(2) }</span>
 					<span class="text-sm">{new Date(itemData.date).toDateString()}</span></li>
-					{ console.log( parseFloat(itemData.rateExclusive) ) }
 			{/each}
 		</ul>
 	</div>
